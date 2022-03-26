@@ -1,6 +1,7 @@
 {{ ansible_managed | comment }}
 
 {{ var_sudo_logfile }} {
+    su root root
     compress
     rotate {{ var_log_rotate_amount }}
     {{ var_log_rotate_interval }}
