@@ -20,6 +20,7 @@
     line: Defaults \1logfile={{ var_sudo_logfile }}\2
     validate: /usr/sbin/visudo -cf %s
     backrefs: true
+  become: true
   register: reg_edit_sudoers_logfile_option
 
 - name: Enable logfile option with appropriate value in /etc/sudoers
@@ -27,6 +28,7 @@
     path: /etc/sudoers
     line: Defaults logfile={{ var_sudo_logfile }}
     validate: /usr/sbin/visudo -cf %s
+  become: true
   when:
     - reg_edit_sudoers_logfile_option is defined
     - not reg_edit_sudoers_logfile_option['changed']
