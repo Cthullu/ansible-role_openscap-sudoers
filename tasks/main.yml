@@ -19,7 +19,7 @@
 - name: Ensure logfile is enabled with the appropriate value in /etc/sudoers
   lineinfile:
     path: /etc/sudoers
-    regexp: ^[\s]*Defaults\s(.*)\blogfile=[-]?\w+\b(.*)$
+    regexp: ^[\s]*Defaults\s(.*)\blogfile=[-]?[\w/\.]+\b(.*)$
     line: Defaults \1logfile={{ var_sudo_logfile }}\2
     validate: /usr/sbin/visudo -cf %s
     backrefs: true
