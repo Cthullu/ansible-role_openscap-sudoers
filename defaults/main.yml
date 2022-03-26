@@ -3,3 +3,24 @@
 # (string) The path of the logfile which should track sudo acitivities.
 #
 var_sudo_logfile: /var/log/sudo.log
+
+#
+# (boolean) Configure if logrotate should send the rotated logfile by mail.
+#
+var_send_mail: true
+
+#
+# (string) The account which should recieve the send logfile via mail.
+# If var_send_mail is set to true and var_mail_address is unset, no mail will be send.
+#
+var_mail_address: root
+
+#
+# (int) The amount of logfiles which should be kept by logrotate before deletion.
+#
+var_log_rotate_amount: 7
+
+#
+# (string) The interval used by logrotate. Must be one of [daily, weekly, yearly].
+#
+var_log_rotate_interval: daily

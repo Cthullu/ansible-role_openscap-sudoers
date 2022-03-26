@@ -34,3 +34,19 @@
     validate: /usr/sbin/visudo -cf %s
   become: true
   when: reg_check_logfile_occurrence['found'] == 0
+
+- name: Assert that a valid logrotate interval is set
+  ansible.builtin.assert:
+    that:
+      - var_log_rotate_interval in ["daily", "weekly", "yearly"]
+    quiet: true
+    fail_msg: No valid logrotate interval provided
+
+- name: Configure logrotate for /var/log/sudo.log
+  ansible.builtin.template:
+    src: logroate_sudo_template.j2
+    dest: /etc/logrotate.d/sudo-log
+    owner: root
+    group: root
+    mode: '0640'
+  become: true
