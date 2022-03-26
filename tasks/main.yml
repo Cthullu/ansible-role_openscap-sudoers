@@ -5,10 +5,16 @@
     state: present
   become: true
 
-- name: Ensure use_pty is enabled in /etc/sudoers
+- name: Ensure use_pty is enabled in /etc/sudoers for {{ ansible_facts['os_family'] }} based
+    systems
   ansible.builtin.include_tasks:
-    file: use_pty.yml
+    file: "{{ ansible_facts['os_family'] }}-use_pty.yml"
+  when:
+    - ansible_facts['os_family'] in ["Debian"]
 
-- name: Include tasks to ensure the logfile option is properly set inside /etc/sudoers
+- name: Include tasks to ensure the logfile option is properly set inside /etc/sudoers for
+    {{ ansible_facts['os_family'] }} based systems
   ansible.builtin.include_tasks:
-    file: logfile.yml
+    file: "{{ ansible_facts['os_family'] }}-logfile.yml"
+  when:
+    - ansible_facts['os_family'] in ["Debian"]
