@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: Daniel Kuß
   description: An Ansible role which applies sudoers configuration according to the openSCAP
@@ -17,10 +18,10 @@ galaxy_info:
   # To view available platforms and versions (or releases), visit:
   # https://galaxy.ansible.com/api/v1/platforms/
   #
-    platforms:
-  - name: Ubuntu
-    versions:
-    - 20.04
+  platforms:
+    - name: Ubuntu
+      versions:
+        - 20.04
 
 
   galaxy_tags: []
