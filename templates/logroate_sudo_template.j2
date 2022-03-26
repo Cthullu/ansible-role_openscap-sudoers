@@ -5,8 +5,8 @@
     rotate {{ var_log_rotate_amount }}
     {{ var_log_rotate_interval }}
     missingok
-{% if var_send_mail and var_mail_address is not none %}
-    mail {{ var_mail_address }}
+{% if var_send_sudoers_log_mail and var_logrotate_sudoers_mail_address is not none %}
+    mail {{ var_logrotate_sudoers_mail_address }}
 {% else %}
     nomail
 {% endif %}
