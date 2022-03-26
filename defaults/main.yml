@@ -1,2 +1,5 @@
 ---
-# defaults file for openscap-sudoers
+#
+# (string) The path of the logfile which should track sudo acitivities.
+#
+var_sudo_logfile: /var/log/sudo.log

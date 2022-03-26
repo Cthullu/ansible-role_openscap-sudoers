@@ -1,2 +1,32 @@
 ---
-# tasks file for openscap-sudoers
+- name: Ensure sudo package is installed
+  ansible.builtin.package:
+    name: sudo
+    state: present
+  become: true
+
+- name: Ensure use_pty is enabled in /etc/sudoers
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    regexp: ^[\s]*Defaults.*\buse_pty\b.*$
+    line: Defaults use_pty
+    validate: /usr/sbin/visudo -cf %s
+  become: true
+
+- name: Ensure logfile is enabled with the appropriate value in /etc/sudoers
+  lineinfile:
+    path: /etc/sudoers
+    regexp: ^[\s]*Defaults\s(.*)\blogfile=[-]?\w+\b(.*)$
+    line: Defaults \1logfile={{ var_sudo_logfile }}\2
+    validate: /usr/sbin/visudo -cf %s
+    backrefs: true
+  register: reg_edit_sudoers_logfile_option
+
+- name: Enable logfile option with appropriate value in /etc/sudoers
+  lineinfile:
+    path: /etc/sudoers
+    line: Defaults logfile={{ var_sudo_logfile }}
+    validate: /usr/sbin/visudo -cf %s
+  when:
+    - reg_edit_sudoers_logfile_option is defined
+    - not reg_edit_sudoers_logfile_option['changed']
