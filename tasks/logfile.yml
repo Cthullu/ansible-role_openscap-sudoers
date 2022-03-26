@@ -48,6 +48,6 @@
     dest: /etc/logrotate.d/sudo-log
     owner: root
     group: root
-    mode: '0640'
+    mode: '0644'
     validate: logrotate -d %s
   become: true
